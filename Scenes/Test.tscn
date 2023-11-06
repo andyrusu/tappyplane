@@ -1,0 +1,77 @@
+[gd_scene load_steps=10 format=3 uid="uid://can8ssb8465up"]
+
+[ext_resource type="PackedScene" uid="uid://dninjln0c4axi" path="res://Scenes/Background.tscn" id="1_q3oye"]
+[ext_resource type="Script" path="res://Scenes/Test.gd" id="1_qkeq5"]
+[ext_resource type="PackedScene" uid="uid://swn30c3o82fx" path="res://Scenes/ObstacleStandard.tscn" id="2_2umt8"]
+[ext_resource type="Script" path="res://Scenes/Obstacles.gd" id="2_s12fu"]
+[ext_resource type="PackedScene" uid="uid://dreifdjfrnclu" path="res://Scenes/ObstacleHigh.tscn" id="3_y8168"]
+[ext_resource type="PackedScene" uid="uid://s1mt66ihlnpg" path="res://Scenes/ObstacleLow.tscn" id="4_m3lfl"]
+[ext_resource type="PackedScene" uid="uid://br2ds3qpkd5d6" path="res://Scenes/Player.tscn" id="6_tthrn"]
+[ext_resource type="PackedScene" uid="uid://eph2e7fj7f7j" path="res://Scenes/StartTimer.tscn" id="8_oqf6g"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ph515"]
+size = Vector2(214, 20)
+
+[node name="Test" type="Node2D" groups=["Game"]]
+script = ExtResource("1_qkeq5")
+
+[node name="UI" type="Control" parent="."]
+z_index = 9
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Score" type="HBoxContainer" parent="UI"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 10.0
+offset_right = 109.0
+offset_bottom = 50.0
+
+[node name="ScoreLabel" type="Label" parent="UI/Score"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
+text = "Score: "
+
+[node name="ScoreValue" type="Label" parent="UI/Score"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
+text = "0"
+
+[node name="StartScreen" parent="." instance=ExtResource("8_oqf6g")]
+process_mode = 3
+
+[node name="Level" type="Node" parent="."]
+
+[node name="Background" parent="Level" instance=ExtResource("1_q3oye")]
+
+[node name="Obstacles" type="Node" parent="Level" groups=["Obstacles"]]
+script = ExtResource("2_s12fu")
+spawn_position = Vector2(1335, 1)
+obstacle_types = Array[PackedScene]([ExtResource("2_2umt8"), ExtResource("3_y8168"), ExtResource("4_m3lfl")])
+
+[node name="Roof" type="Area2D" parent="Level/Obstacles"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Obstacles/Roof"]
+position = Vector2(242, -9)
+shape = SubResource("RectangleShape2D_ph515")
+
+[node name="Floor" type="Area2D" parent="Level/Obstacles"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Obstacles/Floor"]
+position = Vector2(242, 658)
+shape = SubResource("RectangleShape2D_ph515")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 325)
+
+[node name="Player" parent="." instance=ExtResource("6_tthrn")]
+position = Vector2(230, 301)
+
+[connection signal="body_entered" from="Level/Obstacles/Roof" to="Level/Obstacles" method="_on_floor_body_entered"]
+[connection signal="body_entered" from="Level/Obstacles/Floor" to="Level/Obstacles" method="_on_floor_body_entered"]

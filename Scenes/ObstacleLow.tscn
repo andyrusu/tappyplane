@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=3 uid="uid://s1mt66ihlnpg"]
+
+[ext_resource type="Script" path="res://Scenes/Obstacle.gd" id="1_cgavd"]
+[ext_resource type="Texture2D" uid="uid://cc7icq4im1pi6" path="res://Assets/rock.png" id="3_6ghrx"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_wkaod"]
+b = Vector2(0, 158)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_5oa1d"]
+load_path = "res://.godot/imported/rockDown.png-32cf71ce64749a213c4834cd1ddcaedc.ctex"
+
+[node name="ObstacleLow" type="Node2D"]
+script = ExtResource("1_cgavd")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(43, 11)
+
+[node name="PlayerCheck" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCheck"]
+position = Vector2(12, 318)
+shape = SubResource("SegmentShape2D_wkaod")
+
+[node name="RockUp" type="Area2D" parent="."]
+
+[node name="Collision" type="CollisionPolygon2D" parent="RockUp"]
+polygon = PackedVector2Array(-54, 0, 53, 0, 44, 78, 39, 83, 31, 175, 26, 175, 14, 310, 10, 310, -16, 149, -23, 141)
+
+[node name="Sprite" type="Sprite2D" parent="RockUp"]
+position = Vector2(0, 156.25)
+scale = Vector2(1, 1.32008)
+texture = SubResource("CompressedTexture2D_5oa1d")
+
+[node name="RockDown" type="Area2D" parent="."]
+
+[node name="Collision" type="CollisionPolygon2D" parent="RockDown"]
+position = Vector2(0, 647)
+polygon = PackedVector2Array(-51, 0, 52, 0, 45, -39, 39, -42, 31, -93, 26, -93, 15, -166, 9, -166, -16, -79, -24, -74)
+
+[node name="Sprite" type="Sprite2D" parent="RockDown"]
+position = Vector2(0, 564.75)
+scale = Vector2(1, 0.717573)
+texture = ExtResource("3_6ghrx")
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="body_exited" from="PlayerCheck" to="." method="_on_player_check_body_exited"]
+[connection signal="body_entered" from="RockUp" to="." method="_on_rock_up_body_entered"]
+[connection signal="body_entered" from="RockDown" to="." method="_on_rock_down_body_entered"]

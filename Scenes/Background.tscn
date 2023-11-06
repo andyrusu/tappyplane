@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://dninjln0c4axi"]
+
+[ext_resource type="Script" path="res://Scenes/Background.gd" id="1_sab02"]
+[ext_resource type="Texture2D" uid="uid://c73is87d8qyrn" path="res://Assets/background.png" id="1_yrclm"]
+[ext_resource type="Texture2D" uid="uid://cgtmryxcmka0w" path="res://Assets/groundGrass.png" id="2_2qjt5"]
+
+[node name="Background" type="ParallaxBackground"]
+script = ExtResource("1_sab02")
+
+[node name="Distance" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.5, 0.5)
+motion_mirroring = Vector2(1150, 0)
+
+[node name="Mountains" type="Sprite2D" parent="Distance"]
+position = Vector2(575.5, 323.5)
+scale = Vector2(1.43875, 1.34375)
+texture = ExtResource("1_yrclm")
+
+[node name="Ground" type="ParallaxLayer" parent="."]
+motion_mirroring = Vector2(808, 0)
+
+[node name="Grass" type="Sprite2D" parent="Ground"]
+position = Vector2(404, 613)
+texture = ExtResource("2_2qjt5")
