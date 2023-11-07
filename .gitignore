@@ -1,3 +1,5 @@
 # Godot 4+ specific ignores
 .godot/
-dist/win/*
+dist/win/tappyplane.console.exe
+dist/win/tappyplane.exe
+dist/win/tappyplane.pck
