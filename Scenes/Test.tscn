@@ -71,7 +71,7 @@ shape = SubResource("RectangleShape2D_ph515")
 position = Vector2(576, 325)
 
 [node name="Player" parent="." instance=ExtResource("6_tthrn")]
-position = Vector2(230, 301)
+position = Vector2(227, 302)
 
 [connection signal="body_entered" from="Level/Obstacles/Roof" to="Level/Obstacles" method="_on_floor_body_entered"]
 [connection signal="body_entered" from="Level/Obstacles/Floor" to="Level/Obstacles" method="_on_floor_body_entered"]
